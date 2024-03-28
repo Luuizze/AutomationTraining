@@ -1,28 +1,23 @@
 package pageObjects;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.baseActionElement;
 import utils.browser;
 
-import java.time.Duration;
-
-import static utils.browser.getCurrentDriver;
-
 public class loginPage extends baseActionElement {
 
-    @FindBy(xpath = "//*[@id=\"loginusername\"]")
+    @FindBy(id = "loginusername")
     public WebElement usernameLog;
 
-    @FindBy(xpath = "//*[@id=\"loginpassword\"]")
+    @FindBy(id="loginpassword")
     public WebElement passwordLog;
 
-    @FindBy(xpath = "//*[@id=\"logInModal\"]/div/div/div[3]/button[2]")
+    @FindBy(xpath = "//button[contains(@class, 'btn') and contains(@class, 'btn-primary') and contains(text(), 'Log in')]")
     public WebElement submitLogin;
+
+    @FindBy(xpath = "//button[contains(@class, 'btn') and contains(@class, 'btn-secondary') and contains(text(), 'Close')]")
+    public WebElement submitClose;
 
     public loginPage() {
         PageFactory.initElements(browser.getCurrentDriver(), this);
@@ -43,13 +38,10 @@ public class loginPage extends baseActionElement {
         clickElement(submitLogin);
     }
 
-    public void sleepTest(boolean IorE){
-        if(IorE){ //Implicit Wait: Global, na vida útil do WebDriver
-            getCurrentDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        }else{ //Explicit Wait: Pra um elemento especifico
-            WebDriverWait wait = new WebDriverWait(getCurrentDriver(), Duration.ofSeconds(5));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"loginusername\"]")));
-        }
+    public void doLogin(String username, String password) {
+        fillTextField(usernameLog, username);
+        fillTextField(passwordLog, password);
+        clickBtnSubmitLogin();
     }
 
 }

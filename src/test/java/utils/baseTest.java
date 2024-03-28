@@ -3,6 +3,7 @@ package utils;
 import org.junit.Before;
 import org.junit.After;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -45,4 +46,22 @@ public class baseTest {
         return getCurrentDriver().getCurrentUrl();
     }
 
+    public void sleepTest(boolean IorE){
+        if(IorE){ //Implicit Wait: Global, na vida útil do WebDriver
+            getCurrentDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        }else{ //Explicit Wait: Pra um elemento especifico
+            WebDriverWait wait = new WebDriverWait(getCurrentDriver(), Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("xpath = \"//h4[@class='card-title']/a[contains(@class, 'hrefch') and contains(@href, 'prod.html?idp=2')]\"")));
+        }
+    }
+
+    public void calm(){
+        try {
+            // Pausa a execução da thread atual por 5 segundos
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            // Trata a exceção InterruptedException
+            e.printStackTrace();
+        }
+    }
 }

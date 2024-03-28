@@ -7,10 +7,26 @@ import utils.baseActionElement;
 import utils.browser;
 
 public class homePage extends baseActionElement {
-        @FindBy(xpath = "//*[@id=\"signin2\"]")
+        @FindBy(id="signin2")
         public WebElement signin;
-        @FindBy(xpath = "//*[@id=\"login2\"]")
+        @FindBy(id="login2")
         public WebElement login;
+        @FindBy(xpath = "//*[@id=\"tbodyid\"]/div[2]/div/div/h4/a")
+        public WebElement nokiaLinkItem;
+        @FindBy(xpath = "//*[@id=\"tbodyid\"]/div[8]/div/div/h4/a")
+        public WebElement noteLinkItem;
+        @FindBy(xpath = "//*[@id=\"tbodyid\"]/div[2]/div/div/h4/a")
+        public WebElement MonitorLinkItem;
+        @FindBy(xpath = "//*[@id=\"itemc\"][3]")
+        public WebElement MonitorBttn;
+
+        public boolean getNokiaLinkItemExist() {
+                if(isElementExisting(nokiaLinkItem)){
+                        return true;
+                }
+                return false;
+        }
+
 
         public homePage() {
                 PageFactory.initElements(browser.getCurrentDriver(), this);
@@ -24,5 +40,9 @@ public class homePage extends baseActionElement {
                 signin.click();
         }
 
+        public void clickLinkNokia(){nokiaLinkItem.click();}
+        public void clickLinkNote(){noteLinkItem.click();}
+        public void clickLinkMonitor(){MonitorLinkItem.click();}
+        public void clickMonitorBttn(){MonitorBttn.click();}
 }
 
